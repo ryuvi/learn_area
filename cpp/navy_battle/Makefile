@@ -1,22 +1,14 @@
-#-------------------------#
-CPP = g++
-RM  = del /f /s /q
+CXX = g++
+CXXFLAGS = -Wall -Werror -Wextra -pedantic -std=c++17 -g -fsanitize=address -I $(wildcard include/*.hpp)
+LDFLAGS =
 
-#-------------------------#
-CPPSOURCE = $(wildcard *.cpp)
-HPPSOURCE = $(wildcard include/*.hpp)
+OBJ = $(wildcard *.cpp)
+EXEC = bin/navy_battle.exe
 
-#-------------------------#
-BIN_DIR = bin
+all: $(EXEC)
 
-#-------------------------#
-INFLAGS  = -I $(HPPSOURCE)
-
-CPPFLAGS = $(INFLAGS) \
-		   -Wall
-
-all:
-	$(CPP) $(CPPSOURCE) $(CPPFLAGS) -o bin/NavyBattle
+$(EXEC): $(OBJ)
+	$(CXX) $(LDFLAGS) -o $@ $(OBJ) $(LBLIBS)
 
 clean:
-	$(RM) bin\\*
+	rm -rf $(OBJ) $(EXEC)
